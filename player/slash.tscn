@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2tvxlfyoqf4a"]
+
+[ext_resource type="Texture2D" uid="uid://cy7jjnjv1ods5" path="res://assets/The SwordMaster/VFX Sprite Sheet 90x37.png" id="1_0rub7"]
+[ext_resource type="Script" path="res://player/slash.gd" id="2_58hs4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftga2"]
+atlas = ExtResource("1_0rub7")
+region = Rect2(0, 37, 90, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37hmr"]
+atlas = ExtResource("1_0rub7")
+region = Rect2(90, 37, 90, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auwai"]
+atlas = ExtResource("1_0rub7")
+region = Rect2(180, 37, 90, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f41te"]
+atlas = ExtResource("1_0rub7")
+region = Rect2(270, 37, 90, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s7o5y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftga2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37hmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_auwai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f41te")
+}],
+"loop": false,
+"name": &"slash",
+"speed": 10.0
+}]
+
+[node name="Slash" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_s7o5y")
+animation = &"slash"
+script = ExtResource("2_58hs4")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
