@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://ujeku7a01mve" path="res://assets/Shock Sweeper/Shock Sweeper/static idle.png" id="4_h6ptx"]
 [ext_resource type="Texture2D" uid="uid://b8ybgkfx01x6m" path="res://assets/Shock Sweeper/Shock Sweeper/shuffe(move).png" id="5_auvct"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptc8r"]
-size = Vector2(7, 4)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kib3w"]
+radius = 5.5
+height = 20.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1g3c3"]
 atlas = ExtResource("3_uusve")
@@ -311,8 +312,8 @@ target_position = Vector2(-100, 0)
 script = ExtResource("2_2lv7l")
 
 [node name="CollisionGround" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 12)
-shape = SubResource("RectangleShape2D_ptc8r")
+position = Vector2(0.5, 4)
+shape = SubResource("CapsuleShape2D_kib3w")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 scale = Vector2(-1, 1)

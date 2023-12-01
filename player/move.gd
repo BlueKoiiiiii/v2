@@ -37,7 +37,7 @@ func state_input(event : InputEvent):
 	if(event.is_action_pressed("jump")):
 		next_state = air_state
 		character.velocity.y = -200
-	if(event.is_action_pressed("attack") and not dashing):
+	if(event.is_action_pressed("attack") and abs(character.velocity.x) <= 175):
 		next_state = attack_state
 		playback.travel("slash")
 		var mouseposition = get_viewport().get_mouse_position()
@@ -45,7 +45,7 @@ func state_input(event : InputEvent):
 			character.marker.scale.x = 1
 		else: 
 			character.marker.scale.x = -1
-	if(event.is_action_pressed("attack") and dashing):
+	if(event.is_action_pressed("attack") and abs(character.velocity.x) > 175):
 		next_state = dashattack_state
 		playback.travel("dashattack")
 		var mouseposition = get_viewport().get_mouse_position()

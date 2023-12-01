@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2tvxlfyoqf4a"]
+[gd_scene load_steps=12 format=3 uid="uid://b2tvxlfyoqf4a"]
 
 [ext_resource type="Texture2D" uid="uid://cy7jjnjv1ods5" path="res://assets/The SwordMaster/VFX Sprite Sheet 90x37.png" id="1_0rub7"]
 [ext_resource type="Script" path="res://player/slash.gd" id="2_58hs4"]
@@ -36,24 +36,120 @@ animations = [{
 }],
 "loop": false,
 "name": &"slash",
-"speed": 10.0
+"speed": 12.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_daudb"]
 size = Vector2(80, 20)
 
-[node name="Slash" type="AnimatedSprite2D"]
+[sub_resource type="Animation" id="Animation_ds8nv"]
+resource_name = "slash"
+length = 0.3
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"slash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.18, 0.24, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Marker2D/Area2D:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_p1k4u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"slash"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Marker2D/Area2D:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a70d0"]
+_data = {
+"RESET": SubResource("Animation_p1k4u"),
+"slash": SubResource("Animation_ds8nv")
+}
+
+[node name="Slash" type="AnimatedSprite2D" node_paths=PackedStringArray("slashbox", "anim")]
 sprite_frames = SubResource("SpriteFrames_s7o5y")
 animation = &"slash"
 script = ExtResource("2_58hs4")
+slashbox = NodePath("Marker2D")
+anim = NodePath("AnimationPlayer")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Marker2D"]
 collision_layer = 2
 collision_mask = 2
+monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/Area2D"]
 position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_daudb")
 disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a70d0")
+}
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

@@ -9,9 +9,11 @@ func on_enter():
 	if get_viewport().get_mouse_position().x > 960:
 		character.marker.scale.x = 1
 		slash.flip_v = false
+		slash.slashbox.scale.y = 1
 	else: 
 		character.marker.scale.x = -1
 		slash.flip_v = true
+		slash.slashbox.scale.y = -1
 	add_child(slash)
 	slash.position = slashposition.global_position
 	slash.rotation = slashposition.global_rotation
