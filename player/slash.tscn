@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2tvxlfyoqf4a"]
+[gd_scene load_steps=9 format=3 uid="uid://b2tvxlfyoqf4a"]
 
 [ext_resource type="Texture2D" uid="uid://cy7jjnjv1ods5" path="res://assets/The SwordMaster/VFX Sprite Sheet 90x37.png" id="1_0rub7"]
 [ext_resource type="Script" path="res://player/slash.gd" id="2_58hs4"]
@@ -39,9 +39,21 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_daudb"]
+size = Vector2(80, 20)
+
 [node name="Slash" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_s7o5y")
 animation = &"slash"
 script = ExtResource("2_58hs4")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_daudb")
+disabled = true
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
