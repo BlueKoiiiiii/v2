@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://bqayr8funrav3"]
+
+[ext_resource type="Script" path="res://enemies/spear_enemy.gd" id="1_fofi0"]
+[ext_resource type="Script" path="res://enemies/RayCastTarget.gd" id="2_2lv7l"]
+[ext_resource type="Texture2D" uid="uid://bbudemllau17g" path="res://assets/Shock Sweeper/Shock Sweeper/wake.png" id="2_balo6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptc8r"]
+size = Vector2(7, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vkxy"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 0, 44, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81v0w"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 30, 44, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5pon"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 60, 44, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1cnq"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 90, 44, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4i4n"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 120, 44, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi5rc"]
+atlas = ExtResource("2_balo6")
+region = Rect2(0, 150, 44, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5q8ya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vkxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81v0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5pon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1cnq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4i4n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi5rc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kqwx4"]
+
+[node name="SpearEnemy" type="CharacterBody2D"]
+script = ExtResource("1_fofi0")
+
+[node name="RayCastTargetRight" type="RayCast2D" parent="."]
+target_position = Vector2(300, 0)
+script = ExtResource("2_2lv7l")
+
+[node name="RayCastTargetLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-300, 0)
+script = ExtResource("2_2lv7l")
+
+[node name="CollisionGround" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 12)
+shape = SubResource("RectangleShape2D_ptc8r")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+scale = Vector2(-1, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Marker2D"]
+position = Vector2(27, -16)
+rotation = 3.14159
+scale = Vector2(1, -1)
+sprite_frames = SubResource("SpriteFrames_5q8ya")
+frame = 3
+frame_progress = 0.268294
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationTree")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_kqwx4")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Damageable" type="Node" parent="."]
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(5, 10)
+target_position = Vector2(0, 22)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(-4, 10)
+target_position = Vector2(0, 22)

@@ -1559,4 +1559,4 @@ scale = Vector2(263.795, -4.47781)
 zoom = Vector2(5, 5)
 
 [node name="SpearEnemy" parent="." instance=ExtResource("3_2skcg")]
-position = Vector2(313, -95)
+position = Vector2(366, -96)

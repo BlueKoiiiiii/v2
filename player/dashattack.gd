@@ -14,4 +14,5 @@ func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "dashattack":
 		next_state = move_state
 		playback.travel("Move")
+		character.velocity.x = 0
 #		character.velocity.move_toward(Vector2.ZERO, 10)

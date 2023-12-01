@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://ckvmn3df5ft8v"]
+[gd_scene load_steps=109 format=3 uid="uid://ckvmn3df5ft8v"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ao28h"]
 [ext_resource type="Texture2D" uid="uid://uldp8pwye5pl" path="res://assets/The SwordMaster/Sword Master Sprite Sheet 90x37.png" id="2_0qor0"]
@@ -78,6 +78,8 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uac41"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fr2by"]
 states/Move/node = SubResource("AnimationNodeBlendSpace1D_8jv3u")
 states/Move/position = Vector2(362, 100)
@@ -93,8 +95,8 @@ states/run/node = SubResource("AnimationNodeAnimation_2nl58")
 states/run/position = Vector2(509, 100)
 states/slash/node = SubResource("AnimationNodeAnimation_qh7mv")
 states/slash/position = Vector2(362, 190)
-transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_oa3jl"), "Move", "jump", SubResource("AnimationNodeStateMachineTransition_gp4u2"), "jump", "falltransition", SubResource("AnimationNodeStateMachineTransition_ebqgt"), "falltransition", "fall", SubResource("AnimationNodeStateMachineTransition_bfc31"), "fall", "Move", SubResource("AnimationNodeStateMachineTransition_o4n68"), "Move", "slash", SubResource("AnimationNodeStateMachineTransition_xm6s2"), "slash", "Move", SubResource("AnimationNodeStateMachineTransition_cw5qt"), "Move", "run", SubResource("AnimationNodeStateMachineTransition_mvctv"), "run", "Move", SubResource("AnimationNodeStateMachineTransition_v73m5"), "run", "dashattack", SubResource("AnimationNodeStateMachineTransition_rpi3d"), "dashattack", "run", SubResource("AnimationNodeStateMachineTransition_rgi10")]
-graph_offset = Vector2(0, 36.9364)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_oa3jl"), "Move", "jump", SubResource("AnimationNodeStateMachineTransition_gp4u2"), "jump", "falltransition", SubResource("AnimationNodeStateMachineTransition_ebqgt"), "falltransition", "fall", SubResource("AnimationNodeStateMachineTransition_bfc31"), "fall", "Move", SubResource("AnimationNodeStateMachineTransition_o4n68"), "Move", "slash", SubResource("AnimationNodeStateMachineTransition_xm6s2"), "slash", "Move", SubResource("AnimationNodeStateMachineTransition_cw5qt"), "Move", "run", SubResource("AnimationNodeStateMachineTransition_mvctv"), "run", "Move", SubResource("AnimationNodeStateMachineTransition_v73m5"), "run", "dashattack", SubResource("AnimationNodeStateMachineTransition_rpi3d"), "dashattack", "run", SubResource("AnimationNodeStateMachineTransition_rgi10"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_uac41")]
+graph_offset = Vector2(0, -38.9017)
 
 [sub_resource type="Animation" id="Animation_sonwy"]
 length = 0.001
@@ -121,6 +123,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jc8ra"]
+resource_name = "dashattack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Marker2D/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"dashattack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Marker2D/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5, 6, 7, 8, 9]
 }
 
 [sub_resource type="Animation" id="Animation_qmuge"]
@@ -351,33 +380,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 3, 4, 5, 7]
-}
-
-[sub_resource type="Animation" id="Animation_jc8ra"]
-resource_name = "dashattack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Marker2D/AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"dashattack"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Marker2D/AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 5, 6, 7, 8, 9]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g56w8"]
@@ -881,9 +883,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("StateMachine", "groundstate")]
 script = ExtResource("1_ao28h")
 StateMachine = NodePath("CharacterStateMachine")
+groundstate = NodePath("CharacterStateMachine/ground")
 
 [node name="slashposition" type="Marker2D" parent="."]
 position = Vector2(7, -3)

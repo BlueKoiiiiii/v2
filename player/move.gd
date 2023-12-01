@@ -13,12 +13,20 @@ func state_process(delta):
 		if !character.is_on_floor():
 			next_state = fall_state
 			playback.travel("falltransition")
-		if character.speed > 100: 
+		if character.velocity.x > 100 or character.velocity.x < -100: 
 			playback.travel("run")
+		else:
+			playback.travel("Move")
+		print(character.speed)
+			
+			
 
-#func on_enter():
 #	dashing = false
 #	runcondition = false
+#	playback.travel("Move")
+func on_enter():
+	dashing = false
+	runcondition = false
 #	character.speed = 70
 	
 func update_animation():
@@ -29,7 +37,6 @@ func state_input(event : InputEvent):
 	if(event.is_action_pressed("jump")):
 		next_state = air_state
 		character.velocity.y = -200
-		playback.travel("jump")
 	if(event.is_action_pressed("attack") and not dashing):
 		next_state = attack_state
 		playback.travel("slash")

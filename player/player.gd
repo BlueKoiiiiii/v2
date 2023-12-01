@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+class_name Player
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -11,6 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var StateMachine : CharacterStateMachine 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var marker : Marker2D = $Marker2D
+@export var groundstate : State
 var directionright : bool
 
 func _ready():
@@ -38,6 +39,7 @@ func _physics_process(delta):
 		if direction.x < 0: 
 			marker.scale.x = -1
 	else: 
+#		speed = 0
 		velocity.x = velocity.move_toward(Vector2.ZERO, friction).x
 	
 
